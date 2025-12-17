@@ -17,7 +17,7 @@ data:
     [attestation_token]
     insecure_key = false
     attestation_token_type = "CoCo"
-    trusted_certs_paths = ["/etc/attestation-cert/token.crt"] # Check for location in cert (based on key generated)
+    trusted_certs_paths = ["/etc/attestation-cert/tls.crt"] # Check for location in cert (based on key generated)
 
     [attestation_service]
     type = "coco_as_builtin"
@@ -29,8 +29,8 @@ data:
     policy_dir = "/opt/confidential-containers/attestation-service/policies"
 
     [attestation_service.attestation_token_broker.signer]
-    key_path = "/etc/attestation-key/token.key"
-    cert_path = "/etc/attestation-cert/token.crt"
+    key_path = "/etc/attestation-cert/tls.key"
+    cert_path = "/etc/attestation-cert/tls.crt"
 
     [attestation_service.attestation_token_config]
     duration_min = 5

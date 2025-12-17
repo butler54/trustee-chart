@@ -21,6 +21,8 @@ spec:
   kbsHttpsCertSecretName: kbs-https-certificate
   kbsResourcePolicyConfigMapName: resource-policy
   kbsAttestationPolicyConfigMapName: attestation-policy
+  kbsAttestationCertSecretName: attestation-cert
+  kbsAttestationKeySecretName: attestation-cert
 
 
   # TDX specific configuration (optional)

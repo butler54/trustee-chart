@@ -35,3 +35,9 @@ kbs:
       key: "secret/data/hub/kbsres1"
     - name: "passphrase"
       key: "secret/data/hub/passphrase"
+
+# Attestation token certificate configuration
+# Used when secretStore.backend is "none" (cert-manager generates certs)
+attestation:
+  commonName: "kbs-trustee-operator-system"
+  organization: "Red Hat"
