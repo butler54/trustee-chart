@@ -1,4 +1,4 @@
-{{- if ne .Values.global.secretStore.backend "none" && .Values.global.coco.securityPolicyFlavour == "signed" }}
+{{- if and (ne .Values.global.secretStore.backend "none") (eq .Values.global.coco.securityPolicyFlavour "signed") }}
 ---
 apiVersion: "external-secrets.io/v1beta1"
 kind: ExternalSecret
