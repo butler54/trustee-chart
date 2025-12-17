@@ -12,6 +12,9 @@ spec:
     {{- range .Values.kbs.secretResources }}
     - "{{ .name }}"
     {{- end }}
+    {{- if .Values.global.coco.securityPolicyFlavour == "signed" }}
+    - "cosign-keys"
+    {{- end }}
     - "security-policy"
     - "attestation-status"
   kbsHttpsKeySecretName: kbs-https-key

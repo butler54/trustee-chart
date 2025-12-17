@@ -10,11 +10,17 @@ global:
   secretStore:
     # Secret store backend, typically overridden by values-global.yaml
     backend: ""
+  # must be global as needs to be propagated to ansible playbooks.
+  # SHOULD be set in values-global.yaml
+  coco:
+    securityPolicy: secret/data/hub/securityPolicyConfig
+    securityPolicyFlavour: "insecure" # insecure, signed or reject is expected.
 
 # KBS (Key Broker Service) configuration
 kbs:
   # Security policy is an expected secret and is required to be pushed into the KBS
-  securityPolicy: secret/data/hub/securityPolicyConfig
+  # presumes security policy flavour is signed
+  cosignKeys: secret/data/hub/coSignKeys
 
   # Public key for authentication by a user with the KBS management API
   publicKey: secret/data/hub/kbsPublicKey
