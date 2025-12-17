@@ -12,7 +12,9 @@ spec:
     {{- range .Values.kbs.secretResources }}
     - "{{ .name }}"
     {{- end }}
-    {{- if .Values.global.coco.securityPolicyFlavour == "signed" }}
+    {{- if eq .Values.global.coco.securityPolicyFlavour "signed" }}
+    - "cosign-keys"
+    {{- end }}
     - "cosign-keys"
     {{- end }}
     - "security-policy"
