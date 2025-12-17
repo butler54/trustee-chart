@@ -15,6 +15,7 @@ global:
   coco:
     securityPolicy: secret/data/hub/securityPolicyConfig
     securityPolicyFlavour: "insecure" # insecure, signed or reject is expected.
+    attestationStatus: secret/data/hub/attestationStatus
 
 # KBS (Key Broker Service) configuration
 kbs:
