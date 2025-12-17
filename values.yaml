@@ -22,9 +22,10 @@ kbs:
   # Dynamic secret resources list - add new secrets here
   # Each entry generates an ESO and gets added to kbsSecretResources
   # requires a name of the secret and a key to retrieve using ESO, typically from vault.
-  secretResources: []
+  secretResources: 
     # Example:
-    # - name: "kbsres1"
-    #   key: "secret/data/hub/kbsres1"
-    # - name: "passphrase"
-    #   key: "secret/data/hub/passphrase"
+
+    - name: "kbsres1"
+      key: "secret/data/hub/kbsres1"
+    - name: "passphrase"
+      key: "secret/data/hub/passphrase"
