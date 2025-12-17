@@ -13,9 +13,12 @@ spec:
     - "{{ .name }}"
     {{- end }}
     - "security-policy"
+    - "attestation-status"
   kbsHttpsKeySecretName: kbs-https-key
   kbsHttpsCertSecretName: kbs-https-certificate
   kbsResourcePolicyConfigMapName: resource-policy
+  kbsAttestationPolicyConfigMapName: attestation-policy
+
 
   # TDX specific configuration (optional)
   # tdxConfigSpec:

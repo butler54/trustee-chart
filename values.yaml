@@ -1,8 +1,9 @@
 ---
-# Secret store configuration (overridden by values-global.yaml)
+# Secret store configuration
+# Default configuration is vault
 secretStore:
-  name: ""
-  kind: ""
+  name: "vault-backend"
+  kind: "ClusterSecretStore"
 
 
 global:

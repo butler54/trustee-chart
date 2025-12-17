@@ -7,3 +7,7 @@ data:
   policy.rego: |
     package policy
     default allow = true
+    
+    allow {
+      input["submods"]["cpu0"]["ear.status"] == "affirming"
+    }
