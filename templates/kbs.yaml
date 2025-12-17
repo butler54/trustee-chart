@@ -15,8 +15,6 @@ spec:
     {{- if eq .Values.global.coco.securityPolicyFlavour "signed" }}
     - "cosign-keys"
     {{- end }}
-    - "cosign-keys"
-    {{- end }}
     - "security-policy"
     - "attestation-status"
   kbsHttpsKeySecretName: kbs-https-key
