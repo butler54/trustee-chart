@@ -19,5 +19,5 @@ spec:
       type: generic
   dataFrom:
   - extract:
-      key: {{ .Values.kbs.securityPolicy }}
+      key: {{ .Values.global.coco.securityPolicy }}
 {{- end }}
