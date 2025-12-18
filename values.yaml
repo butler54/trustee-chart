@@ -31,14 +31,21 @@ kbs:
   # requires a name of the secret and a key to retrieve using ESO, typically from vault.
   secretResources: 
     # Example:
-
     - name: "kbsres1"
       key: "secret/data/hub/kbsres1"
     - name: "passphrase"
       key: "secret/data/hub/passphrase"
-
+  # Intel TDX (Trust Domain Extensions) configuration
+  tdx:
+    # Enable TDX attestation support
+    enabled: false
+    # PCCS collateral service URL for quote verification
+    # For Azure: Use https://global.acccache.azure.net/sgx/certification/v4/
+    # For bare metal/Intel: Use https://api.trustedservices.intel.com/sgx/certification/v4/
+    collateralService: "https://api.trustedservices.intel.com/sgx/certification/v4/"
 # Attestation token certificate configuration
 # Used when secretStore.backend is "none" (cert-manager generates certs)
 attestation:
   commonName: "kbs-trustee-operator-system"
   organization: "Red Hat"
+
