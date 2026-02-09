@@ -11,7 +11,6 @@ spec:
   secretStoreRef:
     name: {{ .Values.secretStore.name }}
     kind: {{ .Values.secretStore.kind }}
-  data:
   target:
     name: pcr-stash
     template:
