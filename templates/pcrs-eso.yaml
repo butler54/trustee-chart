@@ -1,11 +1,10 @@
-{{- if ne .Values.global.secretStore.backend "none" }}
 ---
 apiVersion: "external-secrets.io/v1beta1"
 kind: ExternalSecret
 metadata: 
   annotations:
     argocd.argoproj.io/sync-wave: "1"
-  name: securitypolicy-eso
+  name: pcrs-eso
   namespace: trustee-operator-system
 spec:
   refreshInterval: 15s
@@ -14,10 +13,9 @@ spec:
     kind: {{ .Values.secretStore.kind }}
   data:
   target:
-    name: security-policy
+    name: pcr-stash
     template:
       type: generic
   dataFrom:
   - extract:
-      key: {{ .Values.global.coco.securityPolicy }}
-{{- end }}
+      key: 'secret/data/hub/pcrStash'
