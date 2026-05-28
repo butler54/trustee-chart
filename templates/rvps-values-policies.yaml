@@ -46,26 +46,21 @@ spec:
           {{`{{- end -}}`}}
           {{`{{- $firmwareStash := (lookup "v1" "Secret" "trustee-operator-system" "firmware-reference-values") -}}`}}
           {{`{{- if $firmwareStash -}}`}}
-          {{`{{- $firmwareData := $firmwareStash.data -}}`}}
+          {{`{{- $firmwareData := $firmwareStash.data.json | base64dec | fromJson -}}`}}
           {{`{{- if $firmwareData.mr_td -}}`}}
-          {{`{{- $mrTdValues := ($firmwareData.mr_td | base64dec | fromJson) -}}`}}
-          {{`{{- $referenceValues = append $referenceValues (dict "name" "mr_td" "expiration" "2027-12-12T00:00:00Z" "value" $mrTdValues) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "mr_td" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.mr_td) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- if $firmwareData.rtmr_1 -}}`}}
-          {{`{{- $rtmr1Values := ($firmwareData.rtmr_1 | base64dec | fromJson) -}}`}}
-          {{`{{- $referenceValues = append $referenceValues (dict "name" "rtmr_1" "expiration" "2027-12-12T00:00:00Z" "value" $rtmr1Values) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "rtmr_1" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.rtmr_1) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- if $firmwareData.rtmr_2 -}}`}}
-          {{`{{- $rtmr2Values := ($firmwareData.rtmr_2 | base64dec | fromJson) -}}`}}
-          {{`{{- $referenceValues = append $referenceValues (dict "name" "rtmr_2" "expiration" "2027-12-12T00:00:00Z" "value" $rtmr2Values) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "rtmr_2" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.rtmr_2) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- if $firmwareData.snp_launch_measurement -}}`}}
-          {{`{{- $snpLaunchValues := ($firmwareData.snp_launch_measurement | base64dec | fromJson) -}}`}}
-          {{`{{- $referenceValues = append $referenceValues (dict "name" "snp_launch_measurement" "expiration" "2027-12-12T00:00:00Z" "value" $snpLaunchValues) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "snp_launch_measurement" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.snp_launch_measurement) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- if $firmwareData.xfam -}}`}}
-          {{`{{- $xfamValues := ($firmwareData.xfam | base64dec | fromJson) -}}`}}
-          {{`{{- $referenceValues = append $referenceValues (dict "name" "xfam" "expiration" "2027-12-12T00:00:00Z" "value" $xfamValues) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "xfam" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.xfam) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- end -}}`}}
           - complianceType: mustonlyhave
