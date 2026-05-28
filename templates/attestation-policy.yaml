@@ -216,6 +216,9 @@ data:
       input["tdx"]
 
       input["tdx"].quote.body.td_attributes.debug == false
+
+      # CoCo pattern: init_data check (runtime configuration hash)
+      input.init_data in query_reference_value("init_data")
     }
 
     ##### Bare Metal SNP
@@ -269,6 +272,9 @@ data:
 
       input["snp"].policy_debug_allowed == false
       input["snp"].policy_migrate_ma == false
+
+      # CoCo pattern: init_data check (runtime configuration hash)
+      input.init_data in query_reference_value("init_data")
     }
 {{- if .Values.kbs.gpu.enabled }}
   default_gpu.rego: |
