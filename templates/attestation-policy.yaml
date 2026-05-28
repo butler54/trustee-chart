@@ -66,6 +66,43 @@ data:
       "sourced-data": sourced_data,
     }
 
+    extensions := [
+      {"name": "ear.trustee.identifiers",
+        "key": -18,
+        "value": {
+          "validated": validated_identifiers
+        }
+      }
+    ]
+
+    # Validated identifiers are information that describes a workload
+    # that are bound to the hardware evidence via attestation
+    # and bound to the workload by the guest runtime.
+    validated_identifiers := object.union_n([
+        container_images_id,
+        container_uids_id,
+    ])
+
+    # Use list comprehension to parse all of the images specified in the policy.
+    container_images := [img |
+        container := input["init_data_claims"]["agent_policy_claims"]["containers"][_]
+        img := container["OCI"]["Annotations"]["io.kubernetes.cri.image-name"]
+    ]
+
+    container_images_id := {"container_images": container_images} if {
+        count(container_images) > 0
+    } else := {}
+
+    # UIDs
+    container_uids := [uid |
+        container := input["init_data_claims"]["agent_policy_claims"]["containers"][_]
+        uid := container["OCI"]["Process"]["User"]["UID"]
+    ]
+
+    container_uids_id := {"container_uids": container_uids} if {
+        count(container_uids) > 0
+    } else := {}
+
     ##### Azure vTPM SNP
     executables := 3 if {
       input["az_snp_vtpm"]
@@ -301,6 +338,43 @@ data:
       "storage-opaque": storage_opaque,
       "sourced-data": sourced_data,
     }
+
+    extensions := [
+      {"name": "ear.trustee.identifiers",
+        "key": -18,
+        "value": {
+          "validated": validated_identifiers
+        }
+      }
+    ]
+
+    # Validated identifiers are information that describes a workload
+    # that are bound to the hardware evidence via attestation
+    # and bound to the workload by the guest runtime.
+    validated_identifiers := object.union_n([
+        container_images_id,
+        container_uids_id,
+    ])
+
+    # Use list comprehension to parse all of the images specified in the policy.
+    container_images := [img |
+        container := input["init_data_claims"]["agent_policy_claims"]["containers"][_]
+        img := container["OCI"]["Annotations"]["io.kubernetes.cri.image-name"]
+    ]
+
+    container_images_id := {"container_images": container_images} if {
+        count(container_images) > 0
+    } else := {}
+
+    # UIDs
+    container_uids := [uid |
+        container := input["init_data_claims"]["agent_policy_claims"]["containers"][_]
+        uid := container["OCI"]["Process"]["User"]["UID"]
+    ]
+
+    container_uids_id := {"container_uids": container_uids} if {
+        count(container_uids) > 0
+    } else := {}
 
     # GPUs verified by NRAS
     hardware := 2 if {
