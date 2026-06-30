@@ -24,6 +24,7 @@ data:
     id = "admin"
     public_key_path = "/etc/auth-secret/publicKey"
     {{- else }}
+    type = "DenyAll"
     insecure_api = false
     auth_public_key = "/etc/auth-secret/publicKey"
     {{- end }}
