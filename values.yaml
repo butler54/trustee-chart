@@ -24,9 +24,6 @@ kbs:
   # presumes security policy flavour is signed
   cosignKeys: secret/data/hub/coSignKeys
 
-  # Public key for authentication by a user with the KBS management API
-  publicKey: secret/data/hub/kbsPublicKey
-
   # Dynamic secret resources list - add new secrets here
   # Each entry generates an ESO and gets added to kbsSecretResources
   # requires a name of the secret and a key to retrieve using ESO, typically from vault.

@@ -7,7 +7,6 @@ metadata:
     argocd.argoproj.io/sync-wave: "7"
 spec:
   kbsConfigMapName: kbs-config
-  kbsAuthSecretName: kbs-auth-public-key
   kbsDeploymentType: AllInOneDeployment
   kbsRvpsRefValuesConfigMapName: rvps-reference-values
   kbsSecretResources: 
