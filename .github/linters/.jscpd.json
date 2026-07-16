@@ -5,6 +5,7 @@
         "templates/core/subscriptions.yaml",
         "templates/core/namespaces.yaml",
         "templates/core/nodes.yaml",
-        "templates/_helpers.tpl"
+        "templates/_helpers.tpl",
+        "templates/attestation-policy.yaml"
     ]
 }
