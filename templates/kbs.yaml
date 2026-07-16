@@ -30,12 +30,6 @@ spec:
   kbsAttestationKeySecretName: attestation-cert
 
 
-  # TDX specific configuration (optional)
-  {{- if .Values.kbs.tdx.enabled }}
-  tdxConfigSpec:
-    kbsTdxConfigMapName: tdx-config
-  {{- end }}
-
   # IBM SE specific configuration (optional)
   # ibmSEConfigSpec:
   #   certStorePvc: <persistent-volume-claim>
