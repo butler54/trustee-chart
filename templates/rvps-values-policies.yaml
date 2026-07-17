@@ -25,7 +25,7 @@ spec:
           {{`{{- $debugRawHash := fromConfigMap "imperative" "debug-initdata" "RAW_HASH" -}}`}}
           {{`{{- $rawHashPadded := printf "%s00000000000000000000000000000000" $rawHash -}}`}}
           {{`{{- $debugRawHashPadded := printf "%s00000000000000000000000000000000" $debugRawHash -}}`}}
-          {{`{{- $referenceValues := dict "init_data" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr8Hash $debugPcr8Hash $rawHash $debugRawHash $rawHashPadded $debugRawHashPadded)) -}}`}}
+          {{`{{- $referenceValues := list (dict "name" "init_data" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr8Hash $debugPcr8Hash $rawHash $debugRawHash $rawHashPadded $debugRawHashPadded)) -}}`}}
           {{`{{- $pcrStash := (lookup "v1" "Secret" "trustee-operator-system" "pcr-stash") -}}`}}
           {{`{{- if $pcrStash -}}`}}
           {{`{{- $secretData := $pcrStash.data.json | base64dec | fromJson -}}`}}
@@ -33,34 +33,34 @@ spec:
           {{`{{- $pcr09 := $secretData.measurements.sha256.pcr09 -}}`}}
           {{`{{- $pcr11 := $secretData.measurements.sha256.pcr11 -}}`}}
           {{`{{- $pcr12 := $secretData.measurements.sha256.pcr12 -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "snp_pcr03" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr03)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "tdx_pcr03" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr03)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "snp_pcr08" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr8Hash $debugPcr8Hash)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "tdx_pcr08" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr8Hash $debugPcr8Hash)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "snp_pcr09" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr09)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "tdx_pcr09" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr09)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "snp_pcr11" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr11)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "tdx_pcr11" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr11)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "snp_pcr12" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr12)) -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "tdx_pcr12" (dict "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr12)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "snp_pcr03" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr03)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "tdx_pcr03" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr03)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "snp_pcr08" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr8Hash $debugPcr8Hash)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "tdx_pcr08" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr8Hash $debugPcr8Hash)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "snp_pcr09" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr09)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "tdx_pcr09" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr09)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "snp_pcr11" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr11)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "tdx_pcr11" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr11)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "snp_pcr12" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr12)) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "tdx_pcr12" "expiration" "2027-12-12T00:00:00Z" "value" (list $pcr12)) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- $firmwareStash := (lookup "v1" "Secret" "trustee-operator-system" "firmware-reference-values") -}}`}}
           {{`{{- if $firmwareStash -}}`}}
           {{`{{- $firmwareData := $firmwareStash.data.json | base64dec | fromJson -}}`}}
           {{`{{- if $firmwareData.mr_td -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "mr_td" (dict "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.mr_td) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "mr_td" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.mr_td) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- if $firmwareData.rtmr_1 -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "rtmr_1" (dict "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.rtmr_1) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "rtmr_1" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.rtmr_1) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- if $firmwareData.rtmr_2 -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "rtmr_2" (dict "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.rtmr_2) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "rtmr_2" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.rtmr_2) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- if $firmwareData.snp_launch_measurement -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "snp_launch_measurement" (dict "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.snp_launch_measurement) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "snp_launch_measurement" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.snp_launch_measurement) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- if $firmwareData.xfam -}}`}}
-          {{`{{- $referenceValues = set $referenceValues "xfam" (dict "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.xfam) -}}`}}
+          {{`{{- $referenceValues = append $referenceValues (dict "name" "xfam" "expiration" "2027-12-12T00:00:00Z" "value" $firmwareData.xfam) -}}`}}
           {{`{{- end -}}`}}
           {{`{{- end -}}`}}
           - complianceType: mustonlyhave
@@ -71,7 +71,7 @@ spec:
                 name: rvps-reference-values
                 namespace: trustee-operator-system
               data:
-                reference_value: '{{`{{ toJson $referenceValues }}`}}'
+                reference-values.json: '{{`{{ toJson $referenceValues }}`}}'
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
