@@ -241,6 +241,18 @@ data:
       input["tdx"].collateral_expiration_status == "0"
     }
 
+    # Fallback: TCB OutOfDate — hardware is real TDX but has known advisories
+    else := 3 if {
+      input["tdx"]
+
+      input["tdx"].quote.header.tee_type == "81000000"
+      input["tdx"].quote.header.vendor_id == "939a7233f79c4ca9940a0db3957f0607"
+
+      input["tdx"].quote.body.mr_td in query_reference_value("mr_td")
+
+      input["tdx"].collateral_expiration_status == "0"
+    }
+
     configuration := 2 if {
       input["tdx"]
 
