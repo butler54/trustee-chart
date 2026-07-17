@@ -71,7 +71,7 @@ spec:
                 name: rvps-reference-values
                 namespace: trustee-operator-system
               data:
-                reference-values.json: '{{`{{ toJson $referenceValues }}`}}'
+                reference_value: '{{`{{ toJson $referenceValues }}`}}'
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding

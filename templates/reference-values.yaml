@@ -7,5 +7,5 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 data:
-  reference-values.json: '[]'
+  reference_value: '[]'
 {{ end }}
