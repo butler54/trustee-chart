@@ -40,6 +40,7 @@ data:
     [attestation_service.rvps_config]
     type = "BuiltIn"
     storage_type = "LocalJson"
+    file_dir_path = "/opt/confidential-containers/storage/local_json"
     {{- if .Values.kbs.gpu.enabled }}
 
     [attestation_service.verifier_config.nvidia_verifier]
