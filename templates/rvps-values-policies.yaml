@@ -80,6 +80,24 @@ spec:
           {{`{{- $referenceValues = set $referenceValues "xfam" (toJson $e | base64enc | replace "+" "-" | replace "/" "_") -}}`}}
           {{`{{- end -}}`}}
           {{`{{- end -}}`}}
+          {{- if .Values.kbs.azure }}
+          {{- with .Values.kbs.azure }}
+          {{`{{- $e := dict "version" "0.1.0" "name" "measurement" "expiration" "2099-12-31T00:00:00Z" "value" (list `}} "{{ .snpLaunchMeasurement }}" {{`) -}}`}}
+          {{`{{- $referenceValues = set $referenceValues "measurement" (toJson $e | base64enc | replace "+" "-" | replace "/" "_") -}}`}}
+          {{`{{- $e = dict "version" "0.1.0" "name" "smt_enabled" "expiration" "2099-12-31T00:00:00Z" "value" (list `}} "{{ .smtEnabled }}" {{`) -}}`}}
+          {{`{{- $referenceValues = set $referenceValues "smt_enabled" (toJson $e | base64enc | replace "+" "-" | replace "/" "_") -}}`}}
+          {{`{{- $e = dict "version" "0.1.0" "name" "tsme_enabled" "expiration" "2099-12-31T00:00:00Z" "value" (list `}} "{{ .tsmeEnabled }}" {{`) -}}`}}
+          {{`{{- $referenceValues = set $referenceValues "tsme_enabled" (toJson $e | base64enc | replace "+" "-" | replace "/" "_") -}}`}}
+          {{`{{- $e = dict "version" "0.1.0" "name" "abi_major" "expiration" "2099-12-31T00:00:00Z" "value" (list `}} "{{ .abiMajor }}" {{`) -}}`}}
+          {{`{{- $referenceValues = set $referenceValues "abi_major" (toJson $e | base64enc | replace "+" "-" | replace "/" "_") -}}`}}
+          {{`{{- $e = dict "version" "0.1.0" "name" "abi_minor" "expiration" "2099-12-31T00:00:00Z" "value" (list `}} "{{ .abiMinor }}" {{`) -}}`}}
+          {{`{{- $referenceValues = set $referenceValues "abi_minor" (toJson $e | base64enc | replace "+" "-" | replace "/" "_") -}}`}}
+          {{`{{- $e = dict "version" "0.1.0" "name" "single_socket" "expiration" "2099-12-31T00:00:00Z" "value" (list `}} "{{ .singleSocket }}" {{`) -}}`}}
+          {{`{{- $referenceValues = set $referenceValues "single_socket" (toJson $e | base64enc | replace "+" "-" | replace "/" "_") -}}`}}
+          {{`{{- $e = dict "version" "0.1.0" "name" "smt_allowed" "expiration" "2099-12-31T00:00:00Z" "value" (list `}} "{{ .smtAllowed }}" {{`) -}}`}}
+          {{`{{- $referenceValues = set $referenceValues "smt_allowed" (toJson $e | base64enc | replace "+" "-" | replace "/" "_") -}}`}}
+          {{- end }}
+          {{- end }}
           - complianceType: mustonlyhave
             objectDefinition:
               apiVersion: v1
