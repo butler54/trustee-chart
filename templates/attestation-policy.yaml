@@ -120,6 +120,7 @@ data:
       input["az-snp-vtpm"]
 
       # Check the reported TCB to validate the ASP FW
+      query_reference_value("tcb_bootloader") != null
       count(query_reference_value("tcb_bootloader")) > 0
       input["az-snp-vtpm"].reported_tcb_bootloader in query_reference_value("tcb_bootloader")
       input["az-snp-vtpm"].reported_tcb_microcode in query_reference_value("tcb_microcode")
@@ -139,6 +140,7 @@ data:
     configuration := 2 if {
       input["az-snp-vtpm"]
 
+      query_reference_value("smt_enabled") != null
       count(query_reference_value("smt_enabled")) > 0
       input["az-snp-vtpm"].platform_smt_enabled in query_reference_value("smt_enabled")
       input["az-snp-vtpm"].platform_tsme_enabled in query_reference_value("tsme_enabled")
@@ -172,6 +174,7 @@ data:
       input["az-tdx-vtpm"].quote.header.vendor_id == "939a7233f79c4ca9940a0db3957f0607"
 
       # Check OVMF code hash
+      query_reference_value("mr_td") != null
       count(query_reference_value("mr_td")) > 0
       input["az-tdx-vtpm"].quote.body.mr_td in query_reference_value("mr_td")
 
@@ -191,6 +194,7 @@ data:
     configuration := 2 if {
       input["az-tdx-vtpm"]
 
+      query_reference_value("xfam") != null
       count(query_reference_value("xfam")) > 0
       input["az-tdx-vtpm"].quote.body.xfam in query_reference_value("xfam")
     }
