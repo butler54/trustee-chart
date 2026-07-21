@@ -22,6 +22,7 @@ spec:
     {{- end }}
     - "security-policy"
     - "attestation-status"
+    - "signing-key"
   kbsHttpsKeySecretName: kbs-https-key
   kbsHttpsCertSecretName: kbs-https-certificate
   kbsResourcePolicyConfigMapName: resource-policy
@@ -29,12 +30,6 @@ spec:
   kbsAttestationCertSecretName: attestation-cert
   kbsAttestationKeySecretName: attestation-cert
 
-
-  # TDX specific configuration (optional)
-  {{- if .Values.kbs.tdx.enabled }}
-  tdxConfigSpec:
-    kbsTdxConfigMapName: tdx-config
-  {{- end }}
 
   # IBM SE specific configuration (optional)
   # ibmSEConfigSpec:

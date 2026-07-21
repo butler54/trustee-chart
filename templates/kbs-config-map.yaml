@@ -5,6 +5,7 @@ metadata:
   namespace: trustee-operator-system
   annotations:
     argocd.argoproj.io/sync-wave: "4"
+    kbs.confidentialcontainers.org/migrated-from-v1.1.0: v1.2.0
 data:
   kbs-config.toml: |
     [http_server]
@@ -15,33 +16,19 @@ data:
     insecure_http = false
     private_key = "/etc/https-key/tls.key"
     certificate = "/etc/https-cert/tls.crt"
-    [admin]
-    {{- if eq (default "v1.0" .Values.kbs.admin.format) "v1.1" }}
-    type = "Simple"
-    insecure_api = false
 
-    [[admin.personas]]
-    id = "admin"
-    public_key_path = "/etc/auth-secret/publicKey"
-    {{- else }}
-    type = "DenyAll"
-    insecure_api = false
-    auth_public_key = "/etc/auth-secret/publicKey"
-    {{- end }}
+    [admin]
+    authorization_mode = "DenyAll"
 
     [attestation_token]
-    insecure_key = false
+    insecure_header_jwk = false
     attestation_token_type = "CoCo"
-    trusted_certs_paths = ["/etc/attestation-cert/tls.crt"] # Check for location in cert (based on key generated)
+    trusted_certs_paths = ["/etc/attestation-cert/tls.crt"]
 
     [attestation_service]
     type = "coco_as_builtin"
-    work_dir = "/opt/confidential-containers/attestation-service"
-    policy_engine = "opa"
 
     [attestation_service.attestation_token_broker]
-    type = "Ear"
-    policy_dir = "/opt/confidential-containers/attestation-service/policies"
 
     [attestation_service.attestation_token_broker.signer]
     key_path = "/etc/attestation-cert/tls.key"
@@ -52,20 +39,28 @@ data:
 
     [attestation_service.rvps_config]
     type = "BuiltIn"
-
-    [attestation_service.rvps_config.storage]
-    type = "LocalJson"
-    file_path = "/opt/confidential-containers/rvps/reference-values/reference-values.json"
+    storage_type = "LocalJson"
+    file_dir_path = "/opt/confidential-containers/storage/local_json"
     {{- if .Values.kbs.gpu.enabled }}
 
     [attestation_service.verifier_config.nvidia_verifier]
     type = "Remote"
     {{- end }}
+    {{- if .Values.kbs.tdx.enabled }}
+
+    [attestation_service.verifier_config.dcap_verifier]
+    collateral_service = "{{ .Values.kbs.tdx.collateralService }}"
+    {{- end }}
 
     [[plugins]]
     name = "resource"
-    type = "LocalFs"
-    dir_path = "/opt/confidential-containers/kbs/repository"
+    storage_backend_type = "kvstorage"
 
-    [policy_engine]
-    policy_path = "/opt/confidential-containers/opa/policy.rego"
+    [storage_backend]
+    storage_type = "LocalFs"
+
+    [storage_backend.backends.local_fs]
+    dir_path = "/opt/confidential-containers/storage"
+
+    [storage_backend.backends.local_json]
+    dir_path = "/opt/confidential-containers/storage/local_json"
