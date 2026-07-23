@@ -50,3 +50,11 @@ spec:
 
   # service type (optional, it defaults to ClusterIP)
   kbsServiceType: ClusterIP
+
+  # TDX collateral mount for offline dcap_verifier (file:// mode)
+  {{- if .Values.kbs.tdx.enabled }}
+  kbsLocalCertCacheSpec:
+    secrets:
+    - secretName: tdx-collateral
+      mountPath: "{{ .Values.kbs.tdx.collateralMountPath }}"
+  {{- end }}

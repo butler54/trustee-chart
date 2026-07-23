@@ -56,6 +56,13 @@ data:
     [attestation_service.rvps_config.storage]
     type = "LocalJson"
     file_path = "/opt/confidential-containers/rvps/reference-values/reference-values.json"
+    {{- if .Values.kbs.tdx.enabled }}
+
+    [attestation_service.verifier_config.dcap_verifier]
+    collateral_service = "{{ .Values.kbs.tdx.collateralService }}"
+    tcb_update_type = "early"
+    {{- end }}
+
     {{- if .Values.kbs.gpu.enabled }}
 
     [attestation_service.verifier_config.nvidia_verifier]
