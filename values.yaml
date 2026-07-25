@@ -72,6 +72,12 @@ kbs:
     # Must match the filename portion of the file:// URL in collateralService.
     collateralFileName: "platform_collaterals.json"
 
+  # Private registry CA certificate injection
+  # Enable to inject private registry CA cert into imperative namespace for
+  # initdata generation. Requires registryCaCert in Vault.
+  registryCa:
+    enabled: false
+
   # Bare metal attestation configuration
   # Enables firmware reference value collection and enforcement
   baremetal:
