@@ -72,6 +72,20 @@ kbs:
     # Must match the filename portion of the file:// URL in collateralService.
     collateralFileName: "platform_collaterals.json"
 
+  # AMD SEV-SNP bare metal attestation configuration
+  snp:
+    # Enable SNP offline attestation (VCEK certificate cache)
+    # When enabled, adds snp_verifier with OfflineStore to KBS config
+    # and mounts VCEK secrets into the KBS pod via kbsLocalCertCacheSpec.
+    enabled: false
+    # VCEK secrets list — populated by `make snp-gen-overrides` in coco-pattern.
+    # Each entry maps a node's hardware ID to a K8s secret containing vcek.der.
+    # Collected via: make snp-collect-vcek-urls (cluster) + make snp-download-vcek (internet)
+    vcekSecrets: []
+    # Example:
+    # - hwid: "abc123def456..."
+    #   secretName: "snp-vcek-abc123def456"
+
   # Private registry CA certificate injection
   # Enable to inject private registry CA cert into imperative namespace for
   # initdata generation. Requires registryCaCert in Vault.
