@@ -20,5 +20,6 @@ spec:
   dataFrom:
   - extract:
       key: 'secret/data/hub/snpVcek-{{ .hwid }}'
+      decodingStrategy: Base64
 {{- end }}
 {{- end }}
