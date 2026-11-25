@@ -76,7 +76,8 @@ kbs:
   snp:
     # Enable SNP attestation (VCEK certificate verification)
     # When enabled, adds snp_verifier to the KBS config with one or more
-    # vcek_sources, driven by vcekSecrets (offline) and/or vcekKdsUrl (online).
+    # vcek_sources, driven by vcekSecrets (offline) and/or vcekKdsUrl (online,
+    # on by default). For completely offline clusters, set vcekKdsUrl to "".
     enabled: false
     # VCEK secrets list — populated by `make snp-gen-overrides` in coco-pattern.
     # Each entry maps a node's hardware ID to a K8s secret containing vcek.der.
@@ -88,12 +89,13 @@ kbs:
     # - hwid: "abc123def456..."
     #   secretName: "snp-vcek-abc123def456"
     # Online AMD Key Distribution Service (KDS) base URL for fetching VCEK
-    # certificates on connected clusters, e.g. "https://kdsintf.amd.com".
-    # When set, adds a KDS vcek_source to the SNP verifier config. May be
-    # combined with vcekSecrets (OfflineStore is tried first, KDS is the
-    # fallback) or used on its own for fully online attestation. Empty by
-    # default, which preserves the original offline-only (OfflineStore) behavior.
-    vcekKdsUrl: ""
+    # certificates on connected clusters. Defaults to the reference AMD KDS
+    # URL (https://kdsintf.amd.com), matching the trustee upstream default,
+    # so bare-metal SNP attestation fetches VCEK certificates online out of
+    # the box. May be combined with vcekSecrets (OfflineStore is tried first,
+    # KDS is the fallback). Set to an empty string ("") when completely
+    # offline/air-gapped to keep the offline-only (OfflineStore) behavior.
+    vcekKdsUrl: "https://kdsintf.amd.com"
 
   # SPIRE Delegated Identity plugin configuration
   # Requires a KBS image built with the spire-plugin cargo feature
