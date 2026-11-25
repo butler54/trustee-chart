@@ -49,6 +49,7 @@ In order to use this chart, you will need to:
 | kbs.secretResources[1].key | string | `"secret/data/hub/passphrase"` |  |
 | kbs.secretResources[1].name | string | `"passphrase"` |  |
 | kbs.snp.enabled | bool | `false` |  |
+| kbs.snp.vcekKdsUrl | string | `""` |  |
 | kbs.snp.vcekSecrets | list | `[]` |  |
 | kbs.spire.enabled | bool | `false` |  |
 | kbs.spire.adminSocketPath | string | `"/run/spire/sockets/admin.sock"` |  |
